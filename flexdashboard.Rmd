@@ -1,0 +1,67 @@
+---
+title: "Flexdashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(plotly)
+library(viridis)
+
+library(p8105.datasets)
+```
+
+```{r data import and tidy}
+data("ny_noaa")
+
+set.seed(2)
+
+ny_noaa1 = ny_noaa %>% 
+  janitor::clean_names() 
+```
+
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Scatterplot of tmax vs tmin (tenths of degrees C)
+
+```{r scatterplot}
+ny_noaa1 %>%
+  filter(!is.na(tmax) & !is.na(tmin)) %>% 
+  sample_n(500) %>% 
+  mutate(text_label = str_c("ID: ", id, '\nDate: ', date)) %>% 
+  plot_ly(x = ~tmin, y = ~tmax, type = "scatter", mode = "markers",
+          alpha = 0.5, 
+          color = ~id,
+          text = ~text_label)
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Boxplot of snowfall (mm)
+
+```{r boxlot}
+ny_noaa1 %>% 
+  filter(snow > 0) %>% 
+  plot_ly(y = ~snow, type = "box")
+```
+
+### Barchart of precipitation (tenths of mm)
+
+```{r barchart}
+ny_noaa1 %>% 
+  filter(prcp > 0) %>% 
+  mutate(prcp = as.factor(prcp)) %>% 
+  count(prcp) %>%
+  mutate(prcp = fct_reorder(prcp, n)) %>% 
+  plot_ly(x = ~prcp, y = ~n, type = "bar")
+```
+
+
+

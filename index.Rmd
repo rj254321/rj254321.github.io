@@ -6,5 +6,7 @@ title: "Welcome!"
 
 This is a brief introductory landing page for github user rj254321. 
 
+View the [flexdashboard](flexdashboard.html)
+
 Thank you for visiting! :)
 
