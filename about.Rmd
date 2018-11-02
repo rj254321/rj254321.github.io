@@ -2,6 +2,35 @@
 title: "Resume"
 ---
 
-### A page giving your academic and professional experience
+### A page giving the academic and professional experience
 
 github user rj254321's resume page
+
+# Ruoyu Ji
+617 W 168th St., New York City, NY 10032, 347-937-0461
+
+## Education
+
+* 2018/09 ~
+
+*Mailman School of Public Health, Columbia University*  
+
+M.S. in Biostatistics (Theory and Methods track)
+
+Studying Data Science, Biostatistical Methods & Probability
+
+* 2014/09 ~ 2018/06
+
+*Department of Mathematics, Southeast University*
+
+B.S. in Statistics	
+
+Recipient of Academic Excellence Scholarship (2015 & 2016)
+
+* 2016/07 ~ 2016/08
+
+*Summer Session, UC Berkeley*
+
+Visiting Student
+
+Completed Macroeconomic Analysis for Business Decisions

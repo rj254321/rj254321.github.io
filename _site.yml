@@ -5,6 +5,8 @@ navbar:
   right:
     - text: "Resume"
       href: about.html
+    - text: "CourseWork Profile"
+      href: https://courseworks2.columbia.edu/profile
     - icon: fa-envelope fa-lg
       href: mailto:<rj2543@columbia.edu>
     - icon: fa-github fa-lg

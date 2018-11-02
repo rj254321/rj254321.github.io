@@ -10,3 +10,5 @@ View the [flexdashboard](flexdashboard.html)
 
 Thank you for visiting! :)
 
+<img src="images/Moon.png" style="width:88%">
+

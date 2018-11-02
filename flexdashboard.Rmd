@@ -21,45 +21,48 @@ data("ny_noaa")
 set.seed(2)
 
 ny_noaa1 = ny_noaa %>% 
-  janitor::clean_names() 
+  janitor::clean_names()
 ```
 
 
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-### Scatterplot of tmax vs tmin (tenths of degrees C)
+### Scatterplot of tmax vs tmin (tenths of degrees C) in USC00300023 throughout 1981
 
 ```{r scatterplot}
-ny_noaa1 %>%
-  filter(!is.na(tmax) & !is.na(tmin)) %>% 
-  sample_n(500) %>% 
-  mutate(text_label = str_c("ID: ", id, '\nDate: ', date)) %>% 
+ny_noaa1 %>% 
+  filter(id == ("USC00300023") & !is.na(tmax) & !is.na(tmin)) %>% # filter the USC00300023 id and related tmax & tmin data
+  separate(date, into = c("year", "month", "day"), sep = "-") %>% # prepare data to filter the "year" and "month"
+  filter(year == 1981) %>% # specify the data in 1981
+  mutate(text_label = str_c("ID: ", id, "\nMonth: ", month, "\nDay: ", day)) %>% # text label related to id and date
   plot_ly(x = ~tmin, y = ~tmax, type = "scatter", mode = "markers",
-          alpha = 0.5, 
-          color = ~id,
+          alpha = 0.8, 
+          color = ~month, # colored by different monthes
           text = ~text_label)
 ```
 
 Column {data-width=350}
 -----------------------------------------------------------------------
 
-### Boxplot of snowfall (mm)
+### Boxplot of snowfall (mm) in USC00300023 over years
 
 ```{r boxlot}
 ny_noaa1 %>% 
-  filter(snow > 0) %>% 
-  plot_ly(y = ~snow, type = "box")
+  filter(id == ("USC00300023") & snow > 0) %>% # filter the USC00300023 id and related available snow data
+  separate(date, into = c("year", "month", "day"), sep = "-") %>% # prepare data to filter the "year"
+  plot_ly(y = ~snow, color = ~year, type = "box") # boxplot of snowfall separately for each year
 ```
 
-### Barchart of precipitation (tenths of mm)
+### Barchart of precipitation (tenths of mm) in USC00300023
 
 ```{r barchart}
 ny_noaa1 %>% 
-  filter(prcp > 0) %>% 
-  mutate(prcp = as.factor(prcp)) %>% 
-  count(prcp) %>%
-  mutate(prcp = fct_reorder(prcp, n)) %>% 
+  filter(id == ("USC00300023") & prcp > 0) %>% # filter the USC00300023 id and related available precipitation data
+  mutate(prcp = as.factor(prcp)) %>% # in order for count
+  count(prcp) %>% # prepare data for barchart in plotly
+  filter(n > 1) %>% # filter out rare incidences
+  mutate(prcp = fct_reorder(prcp, n)) %>% # arrange data in ascending order
   plot_ly(x = ~prcp, y = ~n, type = "bar")
 ```
 
